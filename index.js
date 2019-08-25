@@ -30,7 +30,7 @@ function game(){
     for(var y=0;y<maps[x].length;y++)
     if(maps[x][y]){
       find = true;
-      fill("#7186e5");
+      fill("#634DFF");
       rect(y*player.size.w, x*player.size.h, player.size.w, player.size.h);
     }
   if(!find){
@@ -48,7 +48,7 @@ function game(){
         y = ~~(pos.y/size.w),
         x0 = ~~(player.body[0].pos.x/player.size.w),
         y0 = ~~(player.body[0].pos.y/player.size.h);
-    fill(i==0?"#98C8C5":"#a1c6b5")
+    fill(i==0?"#A796B0":"#7E5B95")
     //fill(i==0?"#d1e6e5":"#a1c6b5");
     rect(pos.x, pos.y, size.w, size.h);
 
