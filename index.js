@@ -1,24 +1,26 @@
 var maps;;
 var player;
 var clock = 0;
+var delay = 5;
+var mapsplit = {w:40,h:40}
 
 function setup() {
   var min = ~~(Math.min(windowWidth, windowHeight)/100)*100;
   createCanvas(min, min);
   noStroke();
-  var mapsplit = {
-    w:40,
-    h:40
-  }
   maps = Array.apply(null, Array(mapsplit.w)).map(v=>Array.apply(null, Array(mapsplit.h)).map(v=>false))
   player = new playerObject({
     size:{w:width/mapsplit.w, h:height/mapsplit.h}
   });
 }
 
-function draw() {
+function draw(){
   background(51);
-  clock = (clock+1)%5;
+  game();
+}
+
+function game(){
+  clock = (clock+1)%delay;
   if(player.body.length<3)
     player.generate();
   if(clock==0)
@@ -37,21 +39,27 @@ function draw() {
     maps[x][y] = true;
   }
 
-      
+  //if(clock==0&&console.clear());
+
   for(var i=0;i<player.body.length;i++){
     let pos = player.body[i].pos;
     let size = player.size;
-    let x = ~~(pos.y/size.h),
-        y = ~~(pos.x/size.w);
+    let x = ~~(pos.x/size.h),
+        y = ~~(pos.y/size.w),
+        x0 = ~~(player.body[0].pos.x/player.size.w),
+        y0 = ~~(player.body[0].pos.y/player.size.h);
     fill(i==0?color(0, 200, 0):color(0, 100, 10));
     rect(pos.x, pos.y, size.w, size.h);
+
+    if(i!=0 && x0 == x && y0 == y)
+      player = new playerObject({size:{w:width/mapsplit.w, h:height/mapsplit.h}});
     
-    if(maps[x][y]){
+    if(maps[y][x]){
       player.generate();
-      maps[x][y] = false;
+      maps[y][x] = false;
     }
 
-    //text(`${i}`, pos.x+size.w/3-textWidth(`${i}`)/2, pos.y+size.h/3*2);
+    text(`${i}`, pos.x+size.w/3-textWidth(`${i}`)/2, pos.y+size.h/3*2);
   }
 }
 
@@ -161,7 +169,7 @@ playerObject.prototype.control = function(key) {
       y1 = this.body[0].pos.y/this.size.h,
       x2 = this.body[1].pos.x/this.size.w-dir.x,
       y2 = this.body[1].pos.y/this.size.h-dir.y;
-  console.log(x1, x2, y1, y2, dir);
+  //console.log(x1, x2, y1, y2, dir);
   if(x1!=x2&&y1!=y2&&!(dir.x==0&&dir.y==0))
     this.dir = dir;
 }
