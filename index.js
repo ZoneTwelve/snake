@@ -60,7 +60,7 @@ function game(){
       maps[y][x] = false;
     }
 
-    text(`${i}`, pos.x+size.w/3-textWidth(`${i}`)/2, pos.y+size.h/3*2);
+    //text(`${i}`, pos.x+size.w/3-textWidth(`${i}`)/2, pos.y+size.h/3*2);
   }
 }
 
