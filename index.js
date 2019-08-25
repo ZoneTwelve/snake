@@ -15,7 +15,7 @@ function setup() {
 }
 
 function draw(){
-  background(51);
+  background("#080808");
   game();
 }
 
@@ -30,7 +30,7 @@ function game(){
     for(var y=0;y<maps[x].length;y++)
     if(maps[x][y]){
       find = true;
-      fill(0, 0, 255);
+      fill("#7186e5");
       rect(y*player.size.w, x*player.size.h, player.size.w, player.size.h);
     }
   if(!find){
@@ -48,7 +48,8 @@ function game(){
         y = ~~(pos.y/size.w),
         x0 = ~~(player.body[0].pos.x/player.size.w),
         y0 = ~~(player.body[0].pos.y/player.size.h);
-    fill(i==0?color(0, 200, 0):color(0, 100, 10));
+    fill(i==0?"#98C8C5":"#a1c6b5")
+    //fill(i==0?"#d1e6e5":"#a1c6b5");
     rect(pos.x, pos.y, size.w, size.h);
 
     if(i!=0 && x0 == x && y0 == y)
